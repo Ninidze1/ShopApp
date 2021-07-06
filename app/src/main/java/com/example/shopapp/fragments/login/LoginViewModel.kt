@@ -1,12 +1,10 @@
 package com.example.shopapp.fragments.login
 
-import android.content.SharedPreferences
-import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shopapp.models.User
+import com.example.shopapp.models.SignIn
 import com.example.shopapp.network.network.ResultHandle
 import com.example.shopapp.network.repository.LoginRepository
 import com.example.shopapp.user_state.LoginPreference
@@ -19,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository, private val loginPreference: LoginPreference) : ViewModel() {
 
-    private var _loginInfo = MutableLiveData<ResultHandle<User>>()
-    val loginInfo: LiveData<ResultHandle<User>> = _loginInfo
+    private var _loginInfo = MutableLiveData<ResultHandle<SignIn>>()
+    val loginInfo: LiveData<ResultHandle<SignIn>> = _loginInfo
 
     fun login(email: String, password: String) {
         viewModelScope.launch {

@@ -17,6 +17,23 @@ class LoginPreference @Inject constructor(@ApplicationContext private val contex
         sharedPreferences.edit().putBoolean("isLoggined", session).apply()
     }
 
+    fun saveToken(token: String) {
+        sharedPreferences.edit().putString("myToken", token).apply()
+    }
+
+    fun saveUserId(userId: String) {
+        sharedPreferences.edit().putString("myUserId", userId).apply()
+    }
+
+    fun deleteSession() {
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
+
+
     fun checkSession() = sharedPreferences.getBoolean("isLoggined", false)
+
+
 
 }

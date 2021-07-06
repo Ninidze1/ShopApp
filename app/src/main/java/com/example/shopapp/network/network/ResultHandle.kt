@@ -11,14 +11,10 @@ data class ResultHandle <T> (val status: Status, val data: T? = null, val error:
             return ResultHandle(Status.ERROR, null, error)
         }
 
-        fun <T> loading(error: String?): ResultHandle<T> {
-            return ResultHandle(Status.ERROR, null, error)
-        }
 
         enum class Status {
             SUCCESS,
             ERROR,
-            LOADING
         }
     }
 

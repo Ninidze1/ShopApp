@@ -3,6 +3,7 @@ package com.example.shopapp.di
 import com.example.shopapp.network.network.ApiService
 import com.example.shopapp.network.repository.LoginRepository
 import com.example.shopapp.network.repository.RepositoryImpl
+import com.example.shopapp.user_state.LoginPreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +19,6 @@ class retrofitModule {
         private const val BASE_URL = "https://ktorhighsteaks.herokuapp.com/"
     }
 
-
     @Provides
     @Singleton
     fun loginService() = Retrofit.Builder().baseUrl(BASE_URL)
@@ -27,7 +27,7 @@ class retrofitModule {
 
     @Provides
     @Singleton
-    fun provide(appService: ApiService): LoginRepository {
-        return RepositoryImpl(appService)
+    fun provide(appService: ApiService, userPref: LoginPreference): LoginRepository {
+        return RepositoryImpl(appService, userPref)
     }
 }
