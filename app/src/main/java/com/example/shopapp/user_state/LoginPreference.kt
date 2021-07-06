@@ -21,6 +21,10 @@ class LoginPreference @Inject constructor(@ApplicationContext private val contex
         sharedPreferences.edit().putString("myToken", token).apply()
     }
 
+    fun getToken(): String {
+        return sharedPreferences.getString("myToken", "none").toString()
+    }
+
     fun saveUserId(userId: String) {
         sharedPreferences.edit().putString("myUserId", userId).apply()
     }

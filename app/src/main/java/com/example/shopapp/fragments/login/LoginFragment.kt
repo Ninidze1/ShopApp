@@ -10,17 +10,14 @@ import com.example.shopapp.R
 import com.example.shopapp.base.BaseFragment
 import com.example.shopapp.databinding.DialogItemBinding
 import com.example.shopapp.databinding.LoginFragmentBinding
-import com.example.shopapp.extensions.diffColorCenter
-import com.example.shopapp.extensions.isEmail
-import com.example.shopapp.extensions.showDialog
-import com.example.shopapp.extensions.showToast
+import com.example.shopapp.extensions.*
 import com.example.shopapp.network.network.ResultHandle
 import com.example.shopapp.user_state.LoginPreference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
-@AndroidEntryPoint()
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     LoginFragmentBinding::inflate,
     LoginViewModel::class.java
@@ -30,15 +27,13 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     lateinit var userInfo: LoginPreference
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
-        if (userInfo.checkSession())
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        else
-            init()
+        d("preferencelog", "${userInfo.checkSession()}")
+        init()
     }
 
     private fun init() {
+        binding.progressBar.hide()
         binding.inpMail.isEndIconVisible = false
-        observers()
         toRegister()
         listeners()
     }
@@ -52,9 +47,8 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
-        binding.emailEditText.doOnTextChanged { text, start, before, count ->
+        binding.emailEditText.doOnTextChanged { text, _, _, _ ->
             emailChecker(text.toString())
-            d("loglog", "$text, ${emailChecker(text.toString())}")
         }
     }
 
@@ -68,51 +62,50 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     }
 
     private fun signIn() {
-        val dialog = Dialog(requireContext())
-        val dialogBinding = DialogItemBinding.inflate(layoutInflater)
 
         val email = binding.emailEditText.text!!.trim().toString()
         val password = binding.passwordEditText.text!!.trim().toString()
         if (!email.isNullOrBlank() && !password.isNullOrBlank()) {
             if (email.isEmail()) {
                 viewModel.login(email, password)
-                viewModel.activateSession(binding.checkBox.isChecked)
-
+                observers()
             } else {
-                dialog.showDialog(dialogBinding)
-                dialogBinding.title.text = "Error"
-                dialogBinding.desc.text = "Enter valid Email"
-                dialogBinding.noButton.setOnClickListener {
-                    dialog.cancel()
-                }
+                dialog(getString(R.string.error), getString(R.string.enter_valid_email))
             }
         } else {
-            dialog.showDialog(dialogBinding)
-            dialogBinding.title.text = "Error"
-            dialogBinding.desc.text = "Fill empty fields"
-            dialogBinding.noButton.setOnClickListener {
-                dialog.cancel()
-            }
+            dialog(getString(R.string.error), getString(R.string.fill_fields))
         }
     }
 
     private fun observers() {
+
         viewModel.loginInfo.observe(viewLifecycleOwner, {
-
-
+            binding.progressBar.hideIf(it.loading)
             when(it.status) {
-                ResultHandle.Companion.Status.SUCCESS -> {
-                    requireContext().showToast("Success")
-                    it.data?.token?.let { it1 -> userInfo.saveToken(it1) }
+                ResultHandle.Status.SUCCESS -> {
+                    userInfo.saveSession(binding.checkBox.isChecked)
                     userInfo.saveUserId(it.data?.userId.toString())
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    it.data?.token?.let { it1 -> userInfo.saveToken(it1) }
+
+                    val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                    findNavController().navigate(action)
                 }
-                ResultHandle.Companion.Status.ERROR -> {
-                    requireContext().showToast("Enter Correct Credentials")
+                ResultHandle.Status.ERROR -> {
+                    requireContext().showToast("incorrect credentials")
                 }
             }
-
         })
+    }
+
+    private fun dialog(title: String, desc: String) {
+        val dialog = Dialog(requireContext())
+        val dialogBinding = DialogItemBinding.inflate(layoutInflater)
+        dialog.showDialog(dialogBinding)
+        dialogBinding.title.text = title
+        dialogBinding.desc.text = desc
+        dialogBinding.noButton.setOnClickListener {
+            dialog.cancel()
+        }
     }
 
 }

@@ -27,7 +27,7 @@ class retrofitModule {
 
     @Provides
     @Singleton
-    fun provide(appService: ApiService, userPref: LoginPreference): LoginRepository {
-        return RepositoryImpl(appService, userPref)
+    fun provide(appService: ApiService): LoginRepository {
+        return RepositoryImpl(appService)
     }
 }

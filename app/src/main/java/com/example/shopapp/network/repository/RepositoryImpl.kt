@@ -1,23 +1,21 @@
 package com.example.shopapp.network.repository
 
 import com.example.shopapp.models.Item
-import com.example.shopapp.models.SignUp
 import com.example.shopapp.models.SignIn
+import com.example.shopapp.models.SignUp
 import com.example.shopapp.network.network.ApiService
 import com.example.shopapp.network.network.ResultHandle
-import com.example.shopapp.user_state.LoginPreference
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(private val apiService: ApiService, private val sharedPreferences: LoginPreference) : LoginRepository {
+class RepositoryImpl @Inject constructor(private val apiService: ApiService) : LoginRepository {
+
     override suspend fun logIn(email: String, password: String): ResultHandle<SignIn> {
-
-
         return try {
-            val response = apiService.login(email, password)
-            if (response.isSuccessful) {
-                ResultHandle.success(response.body()!!.data)
-            } else {
-                ResultHandle.error(response.body()!!.error)
+            val result = apiService.login(email, password)
+            if (result.isSuccessful){
+                ResultHandle.success(result.body()!!)
+            }else{
+                ResultHandle.error(result.errorBody().toString())
             }
         }catch (e: Exception){
             ResultHandle.error(e.message.toString())
@@ -28,12 +26,12 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService, pri
         return try {
             val response = apiService.register(email, fullName, password)
             if (response.isSuccessful) {
-                ResultHandle.success(response.body()?.data)
+                ResultHandle.success(response.body()!!)
             } else {
-                ResultHandle.error(response.errorBody()?.toString())
+                ResultHandle.error(response.errorBody().toString())
             }
         } catch (e:Exception) {
-            ResultHandle.error(e.message)
+            ResultHandle.error(e.message.toString())
         }
     }
 
@@ -41,12 +39,12 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService, pri
         return try {
             val response = apiService.getPosts()
             if (response.isSuccessful) {
-                ResultHandle.success(response.body()?.data)
+                ResultHandle.success(response.body()!!)
             } else {
-                ResultHandle.error(response.errorBody()?.toString())
+                ResultHandle.error(response.errorBody().toString())
             }
         } catch (e: Exception) {
-            ResultHandle.error(e.message)
+            ResultHandle.error(e.message.toString())
         }
     }
 }

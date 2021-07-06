@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="50sp"
-        android:textSize="20sp"
-        android:textColor="@color/gray"
         android:text="@string/my_feed"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,10 +40,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecylcer"
-        android:layout_width="409dp"
-        android:layout_height="647dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="22dp"
-
+        android:nestedScrollingEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_feed" />

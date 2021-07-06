@@ -1,27 +1,33 @@
 package com.example.shopapp.adapters
 
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopapp.databinding.ItemLayoutBinding
 import com.example.shopapp.models.Item
+
 
 typealias click = (position: Int) -> Unit
 class HomeRecylcerViewAdapter: RecyclerView.Adapter<HomeRecylcerViewAdapter.ViewHolder>() {
     val items = mutableListOf<Item>()
     lateinit var click: click
+    private lateinit var adapter: ImagesRecyclerAdapter
 
     inner class ViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
+
             val model = items[adapterPosition]
+            adapter = ImagesRecyclerAdapter(model.urls)
+            binding.images.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+            binding.images.adapter = adapter
+
+
+
             binding.itemTitle.text = model.title
             binding.description.text = model.description
-            binding.imageSwitcher.setFactory {
-                TODO()
-            }
-
-            binding.price.text = "$ ${model.price.toString()}"
+            "$ ${model.price.toString()}".also { binding.price.text = it }
 
             binding.addToCartButton.setOnClickListener {
                 click.invoke(adapterPosition)
@@ -29,6 +35,7 @@ class HomeRecylcerViewAdapter: RecyclerView.Adapter<HomeRecylcerViewAdapter.View
         }
 
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -45,4 +52,5 @@ class HomeRecylcerViewAdapter: RecyclerView.Adapter<HomeRecylcerViewAdapter.View
         this.items.addAll(items)
         notifyDataSetChanged()
     }
+
 }

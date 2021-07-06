@@ -15,18 +15,16 @@
         android:textColor="@color/dark_gray"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageSwitcher" />
+        app:layout_constraintTop_toBottomOf="@+id/images" />
 
-    <ImageSwitcher
-        android:id="@+id/imageSwitcher"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/images"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageSwitcher>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
@@ -34,9 +32,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageSwitcher"
+        app:layout_constraintBottom_toBottomOf="@+id/images"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageSwitcher"
+        app:layout_constraintTop_toTopOf="@id/images"
         app:srcCompat="@drawable/ic_left" />
 
     <ImageView
@@ -44,9 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageSwitcher"
+        app:layout_constraintBottom_toBottomOf="@+id/images"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageSwitcher"
+        app:layout_constraintTop_toTopOf="@id/images"
         app:srcCompat="@drawable/ic_right" />
 
     <TextView

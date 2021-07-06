@@ -17,4 +17,8 @@
     <string name="repeat_password">Repeat password</string>
     <string name="my_feed">My Feed</string>
     <string name="learn_more">Learn More</string>
+    <string name="error">Error</string>
+    <string name="enter_valid_email">Enter valid Email</string>
+    <string name="fill_fields">Fill empty fields</string>
+
 </resources>
