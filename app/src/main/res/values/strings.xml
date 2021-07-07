@@ -20,5 +20,9 @@
     <string name="error">Error</string>
     <string name="enter_valid_email">Enter valid Email</string>
     <string name="fill_fields">Fill empty fields</string>
+    <string name="track_order">Track Order</string>
+    <string name="my_wallet">My Wallet</string>
+    <string name="favourites">Favourites</string>
+    <string name="home">Home</string>
 
 </resources>
