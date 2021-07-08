@@ -40,9 +40,6 @@ class PostsFragment : BaseFragment<PostsFragmentBinding, PostsViewModel>(
             d("loglog", "$position")
         }
 
-        binding.drawerMenuButton.setOnClickListener {
-            userInfo.deleteSession()
-        }
     }
 
     private fun recyclerInit() {

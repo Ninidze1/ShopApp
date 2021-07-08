@@ -24,5 +24,10 @@
     <string name="my_wallet">My Wallet</string>
     <string name="favourites">Favourites</string>
     <string name="home">Home</string>
+    <string name="menu_item">Menu item</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_post">My Post</string>
+    <string name="about">About</string>
+    <string name="my_cart">My Cart</string>
 
 </resources>
