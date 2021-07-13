@@ -16,11 +16,16 @@ data class ResultHandle<T>(
         fun <T> error(message: String): ResultHandle<T> {
             return ResultHandle(Status.ERROR, null, message)
         }
+
+//        fun <T> loading(): ResultHandle<T> {
+//            return ResultHandle(Status.LOADING)
+//        }
     }
 
     enum class Status {
         SUCCESS,
         ERROR,
+//        LOADING
     }
 
 

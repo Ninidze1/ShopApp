@@ -86,7 +86,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                     userInfo.saveSession(binding.checkBox.isChecked)
                     userInfo.saveUserId(it.data?.userId.toString())
                     it.data?.token?.let { it1 -> userInfo.saveToken(it1) }
-
+                    requireContext().showToast("success")
                     val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                     findNavController().navigate(action)
                 }

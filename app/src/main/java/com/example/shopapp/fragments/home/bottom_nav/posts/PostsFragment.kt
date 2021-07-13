@@ -32,6 +32,12 @@ class PostsFragment : BaseFragment<PostsFragmentBinding, PostsViewModel>(
         recyclerInit()
         listeners()
         observers()
+
+        binding.swipe.setOnRefreshListener {
+            adapter.refresh()
+            viewModel.getPosts()
+        }
+
     }
 
     private fun listeners() {
@@ -50,10 +56,15 @@ class PostsFragment : BaseFragment<PostsFragmentBinding, PostsViewModel>(
 
 
     private fun observers() {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            binding.swipe.isRefreshing = it
+        })
+
         viewModel.post.observe(viewLifecycleOwner, {
             when(it.status) {
                 ResultHandle.Status.SUCCESS -> {
-                    it.data?.let { data -> adapter.addItems(data) }
+                    d("tagtag", "${it.data}")
+                    it.data?.let { data -> adapter.addItems(data.toMutableList()) }
                 }
                 ResultHandle.Status.ERROR -> {
                     d("resultHandle", it.message.toString())
