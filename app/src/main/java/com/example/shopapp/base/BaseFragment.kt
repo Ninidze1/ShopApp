@@ -1,9 +1,11 @@
 package com.example.shopapp.base
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -37,4 +39,15 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         super.onDestroyView()
         _binding = null
     }
+
+    fun requestPerm(permissionRequest: ActivityResultLauncher<Array<String>>) {
+        permissionRequest.launch(
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        )
+    }
+
 }

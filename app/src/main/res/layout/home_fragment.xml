@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         tools:context=".fragments.home.HomeFragment">
 
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -25,6 +26,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_feed"
             app:navGraph="@navigation/bottom_navigation" />
+
 
         <TextView
             android:id="@+id/home_feed"
@@ -69,6 +71,20 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/bottom_nav_menu" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginEnd="32dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@mipmap/add_post_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

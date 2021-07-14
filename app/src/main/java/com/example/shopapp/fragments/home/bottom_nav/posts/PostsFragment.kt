@@ -1,8 +1,10 @@
 package com.example.shopapp.fragments.home.bottom_nav.posts
 
+import android.Manifest
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shopapp.adapters.HomeRecylcerViewAdapter
 import com.example.shopapp.base.BaseFragment
@@ -27,7 +29,22 @@ class PostsFragment : BaseFragment<PostsFragmentBinding, PostsViewModel>(
         init()
     }
 
+
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            if (permissions[Manifest.permission.CAMERA] == true
+                && permissions[Manifest.permission.READ_EXTERNAL_STORAGE] == true
+                && permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true
+            ) {
+                d("permissionTag", "success")
+            } else {
+                d("permissionTag", "failed")
+            }
+        }
+
     private fun init() {
+        requestPerm(requestPermission)
+
         viewModel.getPosts()
         recyclerInit()
         listeners()

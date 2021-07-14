@@ -8,9 +8,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecylcer"
+        android:clipToPadding="true"
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:nestedScrollingEnabled="false" />
-
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

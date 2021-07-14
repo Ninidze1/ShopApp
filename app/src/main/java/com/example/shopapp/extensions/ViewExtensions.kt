@@ -14,6 +14,10 @@ fun View.hide() {
     visibility = View.INVISIBLE
 }
 
+fun View.gone() {
+    visibility = View.GONE
+}
+
 fun View.hideIf(visibility: Boolean) {
     if (visibility) {
         show()
@@ -22,10 +26,18 @@ fun View.hideIf(visibility: Boolean) {
     }
 }
 
+fun View.goneIf(visibility: Boolean) {
+    if (visibility) {
+        gone()
+    } else {
+        show()
+    }
+}
+
+
 fun ImageView.loadImg(url: String) {
     Glide.with(this.context)
         .load(url)
-        .centerCrop()
         .placeholder(R.drawable.ic_placeholder)
         .error(R.drawable.ic_not_found)
         .into(this)
