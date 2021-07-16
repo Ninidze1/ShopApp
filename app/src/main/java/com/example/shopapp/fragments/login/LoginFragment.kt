@@ -87,8 +87,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                     userInfo.saveUserId(it.data?.userId.toString())
                     it.data?.token?.let { it1 -> userInfo.saveToken(it1) }
                     requireContext().showToast("success")
-                    val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                    findNavController().navigate(action)
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
                 ResultHandle.Status.ERROR -> {
                     requireContext().showToast("incorrect credentials")
