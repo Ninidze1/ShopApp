@@ -32,6 +32,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     }
 
     private fun init() {
+
         binding.progressBar.hide()
         binding.inpMail.isEndIconVisible = false
         toRegister()
@@ -41,6 +42,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     private fun listeners() {
         binding.appCompatButton.setOnClickListener {
             signIn()
+
         }
 
         binding.register.setOnClickListener {
@@ -75,16 +77,41 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
         } else {
             dialog(getString(R.string.error), getString(R.string.fill_fields))
         }
+
+        viewModel.getUserInfo()
+
     }
 
     private fun observers() {
+
+        viewModel.profileInfo.observe(viewLifecycleOwner, { userInfo ->
+            binding.progressBar.hideIf(userInfo.loading)
+            when (userInfo.status) {
+                ResultHandle.Status.SUCCESS -> {
+                    d("errorchatch", "gh here")
+                    if (userInfo.data?.profileCompleted != true)
+                        findNavController().navigate(R.id.action_loginFragment_to_completeInfoFragment)
+                    else
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                }
+
+                ResultHandle.Status.ERROR -> {
+                    d("errorchatch", userInfo.message.toString())
+                }
+
+                ResultHandle.Status.LOADING -> {
+
+                }
+            }
+
+        })
 
         viewModel.loginInfo.observe(viewLifecycleOwner, {
             binding.progressBar.hideIf(it.loading)
             when(it.status) {
                 ResultHandle.Status.SUCCESS -> {
                     userInfo.saveSession(binding.checkBox.isChecked)
-                    userInfo.saveUserId(it.data?.userId.toString())
+                    it.data?.userId?.let { it1 -> userInfo.saveUserId(it1) }
                     it.data?.token?.let { it1 -> userInfo.saveToken(it1) }
                     requireContext().showToast("success")
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
@@ -92,6 +119,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                 ResultHandle.Status.ERROR -> {
                     requireContext().showToast("incorrect credentials")
                 }
+                ResultHandle.Status.LOADING -> {}
             }
         })
     }

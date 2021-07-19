@@ -1,11 +1,13 @@
 package com.example.shopapp.base
 
 import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +41,21 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         super.onDestroyView()
         _binding = null
     }
+
+    fun hasCameraPermission() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.CAMERA
+    ) == PackageManager.PERMISSION_GRANTED
+
+    fun readStoragePermission() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    fun writeStoragePermission() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 
     fun requestPerm(permissionRequest: ActivityResultLauncher<Array<String>>) {
         permissionRequest.launch(

@@ -1,5 +1,6 @@
 package com.example.shopapp.extensions
 
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -39,6 +40,14 @@ fun ImageView.loadImg(url: String) {
     Glide.with(this.context)
         .load(url)
         .placeholder(R.drawable.ic_placeholder)
+        .error(R.drawable.ic_not_found)
+        .into(this)
+}
+
+fun ImageView.loadUri(uri: Uri?) {
+    Glide.with(this.context)
+        .load(uri)
+        .placeholder(R.drawable.ic_profile_pic)
         .error(R.drawable.ic_not_found)
         .into(this)
 }

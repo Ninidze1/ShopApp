@@ -17,6 +17,11 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_completeInfoFragment"
+            app:destination="@id/completeInfoFragment"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -53,4 +58,13 @@
         app:destination="@id/loginFragment"
         app:popUpTo="@id/main_navigation"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/completeInfoFragment"
+        android:name="com.example.shopapp.fragments.completeInfo.CompleteInfoFragment"
+        android:label="complete_info_fragment"
+        tools:layout="@layout/complete_info_fragment" >
+        <action
+            android:id="@+id/action_completeInfoFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

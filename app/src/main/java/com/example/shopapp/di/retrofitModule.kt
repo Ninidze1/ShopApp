@@ -4,7 +4,7 @@ import com.example.shopapp.network.network.ApiService
 import com.example.shopapp.network.repository.LoginRepository
 import com.example.shopapp.network.repository.PostRepositoryImpl
 import com.example.shopapp.network.repository.PostsRepository
-import com.example.shopapp.network.repository.RepositoryImpl
+import com.example.shopapp.network.repository.LoginRepositoryImpl
 import com.example.shopapp.user_state.LoginPreference
 import dagger.Module
 import dagger.Provides
@@ -30,7 +30,7 @@ class retrofitModule {
     @Provides
     @Singleton
     fun provideAuth(appService: ApiService): LoginRepository {
-        return RepositoryImpl(appService)
+        return LoginRepositoryImpl(appService)
     }
 
     @Provides

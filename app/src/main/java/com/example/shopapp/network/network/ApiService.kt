@@ -1,5 +1,6 @@
 package com.example.shopapp.network.network
 
+import com.example.shopapp.models.PersonInfo
 import com.example.shopapp.models.PostItem
 import com.example.shopapp.models.SignIn
 import com.example.shopapp.models.SignUp
@@ -20,6 +21,10 @@ interface ApiService {
 
     @GET("posts")
     suspend fun getPosts(): Response<List<PostItem>>
+
+    @FormUrlEncoded
+    @POST("profile")
+    suspend fun completeProfile(@Field("user_id") userID: Int): Response<PersonInfo>
 
 
 }

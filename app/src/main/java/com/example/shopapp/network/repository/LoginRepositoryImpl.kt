@@ -1,12 +1,13 @@
 package com.example.shopapp.network.repository
 
+import com.example.shopapp.models.PersonInfo
 import com.example.shopapp.models.SignIn
 import com.example.shopapp.models.SignUp
 import com.example.shopapp.network.network.ApiService
 import com.example.shopapp.network.network.ResultHandle
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(private val apiService: ApiService) : LoginRepository {
+class LoginRepositoryImpl @Inject constructor(private val apiService: ApiService) : LoginRepository {
 
     override suspend fun logIn(email: String, password: String): ResultHandle<SignIn> {
         return try {
@@ -30,6 +31,19 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : L
                 ResultHandle.error(response.errorBody().toString())
             }
         } catch (e:Exception) {
+            ResultHandle.error(e.message.toString())
+        }
+    }
+
+    override suspend fun profileStatus(uid: Int): ResultHandle<PersonInfo> {
+        return try {
+            val response = apiService.completeProfile(uid)
+            if (response.isSuccessful) {
+                ResultHandle.success(response.body()!!)
+            } else {
+                ResultHandle.error(response.errorBody().toString())
+            }
+        } catch (e: Exception) {
             ResultHandle.error(e.message.toString())
         }
     }

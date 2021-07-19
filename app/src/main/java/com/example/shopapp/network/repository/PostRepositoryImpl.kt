@@ -6,12 +6,12 @@ import com.example.shopapp.network.network.ResultHandle
 import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
-    private val postService: ApiService,
+    private val apiService: ApiService,
 ) : PostsRepository {
 
     override suspend fun getPosts(): ResultHandle<List<PostItem>> {
         return try {
-            val response = postService.getPosts()
+            val response = apiService.getPosts()
             if (response.isSuccessful) {
                 ResultHandle.success(response.body()!!)
             } else {
