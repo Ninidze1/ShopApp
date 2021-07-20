@@ -1,14 +1,11 @@
 package com.example.shopapp.network.network
 
-import com.example.shopapp.models.PersonInfo
+import com.example.shopapp.models.CompleteProfile
 import com.example.shopapp.models.PostItem
 import com.example.shopapp.models.SignIn
 import com.example.shopapp.models.SignUp
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
     @FormUrlEncoded
@@ -24,7 +21,11 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("profile")
-    suspend fun completeProfile(@Field("user_id") userID: Int): Response<PersonInfo>
+    suspend fun completeProfile(@Field("user_id") userID: Int): Response<CompleteProfile>
 
-
+    @GET("https://maps.googllepis.com/maps/api/geocode/json")
+    suspend fun geoCode(
+        @Query("address") address: String,
+        @Query("key") key: String
+    ): Response<MapResult> // aq ratipis dataklasi unda ver davamugame magari gaviwede :(
 }

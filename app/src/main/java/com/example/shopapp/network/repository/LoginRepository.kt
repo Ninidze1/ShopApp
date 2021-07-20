@@ -1,6 +1,6 @@
 package com.example.shopapp.network.repository
 
-import com.example.shopapp.models.PersonInfo
+import com.example.shopapp.models.CompleteProfile
 import com.example.shopapp.models.SignIn
 import com.example.shopapp.models.SignUp
 import com.example.shopapp.network.network.ResultHandle
@@ -8,6 +8,6 @@ import com.example.shopapp.network.network.ResultHandle
 interface LoginRepository {
     suspend fun logIn(email: String, password: String): ResultHandle<SignIn>
     suspend fun register(email: String, fullName: String, password: String): ResultHandle<SignUp>
-    suspend fun profileStatus(uid: Int): ResultHandle<PersonInfo>
+    suspend fun profileStatus(uid: Int): ResultHandle<CompleteProfile>
 
 }

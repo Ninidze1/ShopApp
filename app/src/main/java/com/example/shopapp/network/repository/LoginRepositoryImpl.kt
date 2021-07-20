@@ -1,6 +1,6 @@
 package com.example.shopapp.network.repository
 
-import com.example.shopapp.models.PersonInfo
+import com.example.shopapp.models.CompleteProfile
 import com.example.shopapp.models.SignIn
 import com.example.shopapp.models.SignUp
 import com.example.shopapp.network.network.ApiService
@@ -35,7 +35,7 @@ class LoginRepositoryImpl @Inject constructor(private val apiService: ApiService
         }
     }
 
-    override suspend fun profileStatus(uid: Int): ResultHandle<PersonInfo> {
+    override suspend fun profileStatus(uid: Int): ResultHandle<CompleteProfile> {
         return try {
             val response = apiService.completeProfile(uid)
             if (response.isSuccessful) {

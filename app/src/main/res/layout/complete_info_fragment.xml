@@ -187,12 +187,13 @@
                 tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.gms.maps.MapView
+        <fragment
             android:id="@+id/mapView"
             android:layout_width="0dp"
             android:layout_height="85dp"
             android:layout_marginStart="36dp"
             android:layout_marginTop="45dp"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_marginEnd="36dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

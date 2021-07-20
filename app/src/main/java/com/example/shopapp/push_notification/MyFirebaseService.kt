@@ -46,7 +46,7 @@ class MyFirebaseService : FirebaseMessagingService() {
 
     private fun createNotificationChannel() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel("13", "newPost", importance).apply {
                 description = "descriptionText"

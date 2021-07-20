@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shopapp.models.PersonInfo
+import com.example.shopapp.models.CompleteProfile
 import com.example.shopapp.models.SignIn
 import com.example.shopapp.network.network.ResultHandle
 import com.example.shopapp.network.repository.LoginRepository
@@ -19,8 +19,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository, private val loginPreference: LoginPreference) : ViewModel() {
 
 
-    private var _profileInfo = MutableLiveData<ResultHandle<PersonInfo>>()
-    val profileInfo: LiveData<ResultHandle<PersonInfo>> = _profileInfo
+    private var _profileInfo = MutableLiveData<ResultHandle<CompleteProfile>>()
+    val profileInfo: LiveData<ResultHandle<CompleteProfile>> = _profileInfo
 
     private var _loginInfo = MutableLiveData<ResultHandle<SignIn>>()
     val loginInfo: LiveData<ResultHandle<SignIn>> = _loginInfo
